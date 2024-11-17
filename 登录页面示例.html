@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login and Register Page</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+  }
+  .container {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  .box {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .box label {
+    display: block;
+    margin-top: 10px;
+  }
+  .box input[type="text"],
+  .box input[type="password"],
+  .box input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Added for better control over padding and border */
+  }
+  .box input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  .box input[type="submit"]:hover {
+    background-color: #4cae4c;
+  }
+  .close-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .toggle-form {
+    margin-top: 10px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<button id="loginButton">Login</button>
+
+<div class="container" id="loginContainer">
+  <div class="box">
+    <button class="close-btn" onclick="closeForm('loginContainer')">&times;</button>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="loginUsername">Username:</label>
+      <input type="text" id="loginUsername" name="username" required>
+
+      <label for="loginPassword">Password:</label>
+      <input type="password" id="loginPassword" name="password" required>
+
+      <input type="submit" value="Login">
+    </form>
+    <div class="toggle-form">
+      Not a member? <a href="#" onclick="toggleForm()">Register</a>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="registerContainer" style="display: none;">
+  <div class="box">
+    <button class="close-btn" onclick="closeForm('registerContainer')">&times;</button>
+    <h2>Register</h2>
+    <form id="registerForm">
+      <label for="registerUsername">Username:</label>
+      <input type="text" id="registerUsername" name="username" required>
+
+      <label for="registerEmail">Email:</label>
+      <input type="email" id="registerEmail" name="email" required>
+
+      <label for="registerPassword">Password:</label>
+      <input type="password" id="registerPassword" name="password" required>
+
+      <input type="submit" value="Register">
+    </form>
+    <div class="toggle-form">
+      Already a member? <a href="#" onclick="toggleForm()">Login</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleForm() {
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('registerContainer').style.display = 'flex';
+  }
+
+  document.getElementById('loginButton').addEventListener('click', function() {
+    document.getElementById('loginContainer').style.display = 'flex';
+    document.getElementById('registerContainer').style.display = 'none';
+  });
+
+  function closeForm(containerId) {
+    document.getElementById(containerId).style.display = 'none';
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var username = document.getElementById('loginUsername').value;
+    var password = document.getElementById('loginPassword').value;
+    if(username === "admin" && password === "password") {
+      alert('Login successful!');
+      closeForm('loginContainer');
+    } else {
+      alert('Invalid username or password!');
+    }
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var username = document.getElementById('registerUsername').value;
+    var email = document.getElementById('registerEmail').value;
+    var password = document.getElementById('registerPassword').value;
+    if(username && email && password) {
+      alert('Registration successful!');
+      closeForm('registerContainer');
+    } else {
+      alert('Please fill out all fields!');
+    }
+  });
+</script>
+
+</body>
+</html>优化代码，将关闭按钮添加到登录框，可以从注册跳转到登录
